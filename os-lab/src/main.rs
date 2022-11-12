@@ -1,15 +1,15 @@
 #![no_main]
 #![no_std]
-mod lang_items;
+#![feature(panic_info_message)]
 
-// #[macro_use]
-// mod console;
+#[macro_use]
+mod console;
+mod lang_items;
+mod sbi;
 
 core::arch::global_asm!(include_str!("entry.asm"));
 
-#[macro_use]
-mod sbi;
-use crate::sbi::shutdown;
+// use crate::sbi::shutdown;
 
 const SYSCALL_EXIT: usize = 93;
 
@@ -51,11 +51,14 @@ fn clear_bss() {
 
 #[no_mangle]
 pub fn rust_main() -> ! {
-    // print!("Hello, ");
-    // println!("world!");
-    // sys_exit(9);
     clear_bss();
-    shutdown();
+
+    print!("Hello, ");
+    println!("world!");
+    panic!("Shutdown machine!");
+
+    // sys_exit(9);
+    // shutdown();
 }
 
 
