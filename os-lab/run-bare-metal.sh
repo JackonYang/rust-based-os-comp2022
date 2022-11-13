@@ -1,3 +1,5 @@
+set -e
+
 cargo build --release
 
 rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/release/os --strip-all -O binary target/riscv64gc-unknown-none-elf/release/os.bin
